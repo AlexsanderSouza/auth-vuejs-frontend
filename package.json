@@ -47,7 +47,17 @@
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "rules": {}
+    "rules": {
+      "prettier/prettier": [
+        "warn",
+        {
+          "singleQuote": true,
+          "semi": false,
+          "trailingComma": "none",
+          "tabWidth": 2
+        }
+      ]
+    }
   },
   "browserslist": [
     "> 1%",
