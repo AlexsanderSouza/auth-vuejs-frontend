@@ -1,10 +1,14 @@
 <template>
   <div>
-    <b-form-input v-model="email" placeholder="Enter your name"></b-form-input>
+    <b-form-input
+      type="email"
+      v-model="email"
+      placeholder="{{ $t('user.email') }}"
+    ></b-form-input>
     <b-form-input
       type="password"
       v-model="password"
-      placeholder="Enter your name"
+      placeholder="{{ $t('user.password') }}"
     ></b-form-input>
   </div>
 </template>
