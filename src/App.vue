@@ -2,9 +2,7 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-      <b-alert show>Default Alert</b-alert>
-      <b-alert variant="success" show>Success Alert</b-alert>
+      <router-link to="/login">Login</router-link>
     </div>
     <router-view />
   </div>
