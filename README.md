@@ -20,5 +20,11 @@ npm run build
 npm run lint
 ```
 
+### clear cache .env
+```
+npm cache clear --force
+```
+
+
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
