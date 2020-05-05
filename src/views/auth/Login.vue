@@ -1,13 +1,15 @@
 <template>
-  <LoginComponent />
+    <div>
+        <LoginComponent />
+    </div>
 </template>
 
 <script>
 import LoginComponent from '@/components/auth/LoginComponent.vue'
 
 export default {
-  Name: 'Login',
-  components: { LoginComponent }
+    Name: 'Login',
+    components: { LoginComponent }
 }
 </script>
 

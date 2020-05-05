@@ -8,19 +8,19 @@ Vue.component('ValidationProvider', ValidationProvider)
 Vue.component('ValidationObserver', ValidationObserver)
 
 extend('required', {
-  ...required,
-  message: 'Campo obrigatório'
+    ...required,
+    message: 'Campo obrigatório'
 })
 
 extend('email', {
-  ...email,
-  message: 'Email invalido'
+    ...email,
+    message: 'Email invalido'
 })
 
 extend('minmax', {
-  validate(value, { min, max }) {
-    return value.length >= min && value.length <= max
-  },
-  params: ['min', 'max'],
-  message: '{_field_} deve ter no mínimo {min} e no máximo {max} caracteres'
+    validate(value, { min, max }) {
+        return value.length >= min && value.length <= max
+    },
+    params: ['min', 'max'],
+    message: '{_field_} deve ter no mínimo {min} e no máximo {max} caracteres'
 })

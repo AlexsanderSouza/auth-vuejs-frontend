@@ -55,7 +55,7 @@
           "singleQuote": true,
           "semi": false,
           "trailingComma": "none",
-          "tabWidth": 2
+          "tabWidth": 4
         }
       ]
     }
