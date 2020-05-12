@@ -3,6 +3,7 @@ import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
 import store from './store'
+import { isMobile } from 'mobile-device-detect'
 import './plugins/bootstrap'
 import './plugins/axios'
 import './plugins/veeValidate'
@@ -14,3 +15,11 @@ new Vue({
     store,
     render: h => h(App)
 }).$mount('#app')
+
+Vue.mixin({
+    data() {
+        return {
+            classMobile: isMobile ? '-mobile' : ''
+        }
+    }
+})

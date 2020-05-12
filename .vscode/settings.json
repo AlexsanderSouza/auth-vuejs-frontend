@@ -8,6 +8,7 @@
     "prettier.trailingComma": "none",
     "prettier.semi": false,
     "prettier.tabWidth": 4,
+    "prettier.printWidth": 120,
     "[javascript]": {
         "editor.formatOnSave": true,
         "editor.tabSize": 4,
