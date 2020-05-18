@@ -1,13 +1,25 @@
 <template>
     <div class="div-body">
         <div :class="'login-reg-panel' + classMobile">
-            <div class="show-log-panel" :class="'white-panel' + classMobile">
+            <div v-if="!loginOrRegister" :class="'login-info-box' + classMobile">
+                <h2>Tenho uma conta?</h2>
+                <b-button class="w-100" @click="loginOrRegister_f()" variant="info">Entrar</b-button>
+            </div>
+            <div v-else :class="'register-info-box' + classMobile">
+                <h2>Não tenho uma conta?</h2>
+                <b-button class="w-100" @click="loginOrRegister_f()" variant="info">Registrar</b-button>
+            </div>
+            <div
+                class="show-log-panel"
+                :class="['white-panel' + classMobile, loginOrRegister || isMobile ? '' : 'right-log']"
+            >
                 <div class="login-show">
                     <validation-observer ref="observer" v-slot="{ handleSubmit }">
                         <b-form @submit.stop.prevent="handleSubmit(onSubmit)">
                             <validation-provider name="Email" rules="required|email" v-slot="validationEmail">
                                 <b-form-group>
                                     <b-form-input
+                                        squared
                                         type="text"
                                         name="email-login"
                                         placeholder="Email"
@@ -24,6 +36,7 @@
                             <validation-provider name="Senha" rules="required|minmax:8,14" v-slot="validationPassword">
                                 <b-form-group>
                                     <b-form-input
+                                        squared
                                         type="password"
                                         name="password-login"
                                         placeholder="Senha"
@@ -37,20 +50,39 @@
                                     }}</b-form-invalid-feedback>
                                 </b-form-group>
                             </validation-provider>
-                            <b-button type="submit" variant="primary">Entrar</b-button>
+                            <validation-provider
+                                v-if="!loginOrRegister"
+                                name="Confirmar senha"
+                                rules="required|minmax:8,14"
+                                v-slot="validationPassword"
+                            >
+                                <b-form-group>
+                                    <b-form-input
+                                        squared
+                                        type="password"
+                                        name="password-login"
+                                        placeholder="Confirmar senha"
+                                        v-model="form.confPassword"
+                                        :state="getValidationState(validationPassword)"
+                                        aria-describedby="password-login-feedback"
+                                    ></b-form-input>
+
+                                    <b-form-invalid-feedback id="password-login-feedback">{{
+                                        validationPassword.errors[0]
+                                    }}</b-form-invalid-feedback>
+                                </b-form-group>
+                            </validation-provider>
+                            <b-row>
+                                <b-button v-if="loginOrRegister" variant="outline-info">Esqueceu a senha?</b-button>
+                                <div class="float-right">
+                                    <b-button v-if="loginOrRegister" type="submit">Entrar</b-button>
+                                    <b-button v-else type="submit">Registrar</b-button>
+                                </div>
+                            </b-row>
                         </b-form>
                     </validation-observer>
                 </div>
             </div>
-            <!-- <ValidationProvider
-        vid="email"
-        name="E-mail Address"
-        rules="required|email"
-        v-slot="{ errors }"
-        >
-        <input type="text" v-model="value" />
-        <span>{{ errors[0] }}</span>
-        </ValidationProvider> -->
         </div>
     </div>
 </template>
@@ -61,8 +93,10 @@ export default {
         return {
             form: {
                 name: null,
-                password: null
-            }
+                password: null,
+                confPassword: null
+            },
+            loginOrRegister: true
         }
     },
     methods: {
@@ -79,6 +113,9 @@ export default {
                 this.$refs.observer.reset()
             })
         },
+        loginOrRegister_f() {
+            this.loginOrRegister = !this.loginOrRegister
+        },
         onSubmit() {
             alert('Form submitted!')
         }
@@ -89,6 +126,51 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css?family=Mukta');
 
+.right-log {
+    right: 50px !important;
+}
+.login-info-box {
+    width: 30%;
+    padding: 0 50px;
+    top: 20%;
+    left: 0;
+    position: absolute;
+    text-align: left;
+    color: RGB(85, 138, 146);
+}
+.register-info-box {
+    width: 30%;
+    padding: 0 50px;
+    top: 20%;
+    right: 0;
+    position: absolute;
+    text-align: left;
+    color: RGB(85, 138, 146);
+}
+
+.login-info-box-mobile {
+    width: 30%;
+    padding: 0 50px;
+    top: 20%;
+    left: 0;
+    position: absolute;
+    text-align: left;
+    color: RGB(85, 138, 146);
+}
+.register-info-box-mobile {
+    width: 30%;
+    padding: 0 50px;
+    top: 60%;
+    align-content: center;
+    position: absolute;
+    text-align: center;
+    color: RGB(85, 138, 146);
+}
+
+b-button {
+    background-color: rgba(120, 114, 98, 0.9);
+}
+
 .login-reg-panel-mobile {
     position: relative;
     transform: translateY(30%);
@@ -97,8 +179,8 @@ export default {
     right: 0;
     left: 0;
     margin: auto;
-    height: 400px;
-    background-color: rgba(236, 48, 20, 0.9);
+    height: 500px;
+    background-color: RGBA(42, 41, 47, 0.9);
 }
 .login-reg-panel {
     position: relative;
@@ -109,7 +191,7 @@ export default {
     left: 0;
     margin: auto;
     height: 400px;
-    background-color: rgba(236, 48, 20, 0.9);
+    background-color: RGBA(42, 41, 47, 0.9);
 }
 
 .white-panel {
@@ -126,7 +208,7 @@ export default {
 
 .white-panel-mobile {
     background-color: rgba(255, 255, 255, 1);
-    height: 500px;
+    height: 450px;
     position: absolute;
     top: -50px;
     width: 80%;
