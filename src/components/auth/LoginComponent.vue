@@ -3,11 +3,11 @@
         <div :class="'login-reg-panel' + classMobile">
             <div v-if="!loginOrRegister && !isMobile" class="login-info-box">
                 <h2>Tenho uma conta?</h2>
-                <b-button class="w-100" @click="loginOrRegister_f()" variant="info">Entrar</b-button>
+                <b-button class="w-200" @click="loginOrRegister_f()" variant="info">Entrar</b-button>
             </div>
             <div v-else-if="!isMobile" class="register-info-box">
                 <h2>Não tenho uma conta?</h2>
-                <b-button class="w-100" @click="loginOrRegister_f()" variant="info">Registrar</b-button>
+                <b-button class="w-200" @click="loginOrRegister_f()" variant="info">Registrar</b-button>
             </div>
             <div
                 class="show-log-panel"
@@ -78,7 +78,9 @@
                                 </b-button>
                                 <a v-if="loginOrRegister && isMobile" class="pass-recover">Esqueceu a senha?</a>
                                 <div>
-                                    <b-button v-if="loginOrRegister" type="submit">Entrar</b-button>
+                                    <b-button style="margin-left: 20px" v-if="loginOrRegister" type="submit">
+                                        Entrar
+                                    </b-button>
                                     <b-button v-else type="submit">Registrar</b-button>
                                 </div>
                             </div>
@@ -188,6 +190,7 @@ b-button {
     transform: translateY(30%);
     text-align: center;
     width: 70%;
+    min-width: 500px;
     right: 0;
     left: 0;
     margin: auto;
