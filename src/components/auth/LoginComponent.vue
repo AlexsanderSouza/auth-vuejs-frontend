@@ -1,11 +1,11 @@
 <template>
     <div class="div-body">
         <div :class="'login-reg-panel' + classMobile">
-            <div v-if="!loginOrRegister" :class="'login-info-box' + classMobile">
+            <div v-if="!loginOrRegister && !isMobile" class="login-info-box">
                 <h2>Tenho uma conta?</h2>
                 <b-button class="w-100" @click="loginOrRegister_f()" variant="info">Entrar</b-button>
             </div>
-            <div v-else :class="'register-info-box' + classMobile">
+            <div v-else-if="!isMobile" class="register-info-box">
                 <h2>Não tenho uma conta?</h2>
                 <b-button class="w-100" @click="loginOrRegister_f()" variant="info">Registrar</b-button>
             </div>
@@ -73,11 +73,18 @@
                                 </b-form-group>
                             </validation-provider>
                             <div class="d-flex justify-content-between">
-                                <b-button v-if="loginOrRegister" variant="outline-info">Esqueceu a senha?</b-button>
+                                <b-button v-if="loginOrRegister && !isMobile" variant="outline-info">
+                                    Esqueceu a senha?
+                                </b-button>
+                                <a v-if="loginOrRegister && isMobile" class="pass-recover">Esqueceu a senha?</a>
                                 <div>
                                     <b-button v-if="loginOrRegister" type="submit">Entrar</b-button>
                                     <b-button v-else type="submit">Registrar</b-button>
                                 </div>
+                            </div>
+                            <div v-if="isMobile" class="mobile-info-box">
+                                <a v-if="!loginOrRegister" @click="loginOrRegister_f()">Tenho uma conta !</a>
+                                <a v-else @click="loginOrRegister_f()">Não tenho uma conta !</a>
                             </div>
                         </b-form>
                     </validation-observer>
@@ -123,11 +130,24 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 @import url('https://fonts.googleapis.com/css?family=Mukta');
 
 .right-log {
     right: 50px !important;
+}
+.pass-recover {
+    color: RGB(6, 101, 115);
+    max-width: 100px;
+}
+.mobile-info-box {
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    height: 35px;
+    right: 0;
+    left: 0;
+    color: RGB(6, 101, 115);
 }
 .login-info-box {
     width: 30%;
@@ -136,7 +156,7 @@ export default {
     left: 0;
     position: absolute;
     text-align: left;
-    color: RGB(85, 138, 146);
+    color: RGB(6, 101, 115);
 }
 .register-info-box {
     width: 30%;
@@ -145,26 +165,7 @@ export default {
     right: 0;
     position: absolute;
     text-align: left;
-    color: RGB(85, 138, 146);
-}
-
-.login-info-box-mobile {
-    width: 30%;
-    padding: 0 50px;
-    top: 20%;
-    left: 0;
-    position: absolute;
-    text-align: left;
-    color: RGB(85, 138, 146);
-}
-.register-info-box-mobile {
-    width: 30%;
-    padding: 0 50px;
-    top: 60%;
-    align-content: center;
-    position: absolute;
-    text-align: center;
-    color: RGB(85, 138, 146);
+    color: RGB(6, 101, 115);
 }
 
 b-button {
@@ -173,13 +174,13 @@ b-button {
 
 .login-reg-panel-mobile {
     position: relative;
-    transform: translateY(30%);
+    top: 20%;
     text-align: center;
     width: 100%;
     right: 0;
     left: 0;
     margin: auto;
-    height: 500px;
+    height: 400px;
     background-color: RGBA(42, 41, 47, 0.9);
 }
 .login-reg-panel {
@@ -208,7 +209,7 @@ b-button {
 
 .white-panel-mobile {
     background-color: rgba(255, 255, 255, 1);
-    height: 450px;
+    height: 500px;
     position: absolute;
     top: -50px;
     width: 80%;

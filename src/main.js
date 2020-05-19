@@ -20,7 +20,7 @@ Vue.mixin({
     data() {
         return {
             classMobile: isMobile ? '-mobile' : '',
-            isMobile: isMobile ? '-mobile' : ''
+            isMobile: isMobile
         }
     }
 })
