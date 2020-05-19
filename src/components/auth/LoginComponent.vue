@@ -50,6 +50,7 @@
                                     }}</b-form-invalid-feedback>
                                 </b-form-group>
                             </validation-provider>
+
                             <validation-provider
                                 v-if="!loginOrRegister"
                                 name="Confirmar senha"
@@ -66,19 +67,18 @@
                                         :state="getValidationState(validationPassword)"
                                         aria-describedby="password-login-feedback"
                                     ></b-form-input>
-
                                     <b-form-invalid-feedback id="password-login-feedback">{{
                                         validationPassword.errors[0]
                                     }}</b-form-invalid-feedback>
                                 </b-form-group>
                             </validation-provider>
-                            <b-row>
+                            <div class="d-flex justify-content-between">
                                 <b-button v-if="loginOrRegister" variant="outline-info">Esqueceu a senha?</b-button>
-                                <div class="float-right">
+                                <div>
                                     <b-button v-if="loginOrRegister" type="submit">Entrar</b-button>
                                     <b-button v-else type="submit">Registrar</b-button>
                                 </div>
-                            </b-row>
+                            </div>
                         </b-form>
                     </validation-observer>
                 </div>
