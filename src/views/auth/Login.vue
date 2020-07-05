@@ -16,6 +16,29 @@
                 <div class="login-show">
                     <validation-observer ref="observer" v-slot="{ handleSubmit }">
                         <b-form @submit.stop.prevent="handleSubmit(onSubmit)">
+                            <validation-provider
+                                name="Nome"
+                                rules="required|minmax:3,0"
+                                v-slot="validationName"
+                                v-if="!loginOrRegister"
+                            >
+                                <b-form-group>
+                                    <b-form-input
+                                        squared
+                                        autocomplete="off"
+                                        type="text"
+                                        name="name-login"
+                                        placeholder="Nome"
+                                        v-model="form.name"
+                                        :state="getValidationState(validationName)"
+                                        aria-describedby="name-login-feedback"
+                                    ></b-form-input>
+
+                                    <b-form-invalid-feedback id="name-login-feedback">{{
+                                        validationName.errors[0]
+                                    }}</b-form-invalid-feedback>
+                                </b-form-group>
+                            </validation-provider>
                             <validation-provider name="Email" rules="required|email" v-slot="validationEmail">
                                 <b-form-group>
                                     <b-form-input
@@ -103,7 +126,7 @@ export default {
     data() {
         return {
             form: {
-                name: 'Alexsander',
+                name: null,
                 email: null,
                 password: null,
                 password_confirmation: null
@@ -123,7 +146,7 @@ export default {
         },
         resetForm() {
             this.form = {
-                name: 'Alexsander',
+                name: null,
                 email: null,
                 password: null,
                 password_confirmation: null

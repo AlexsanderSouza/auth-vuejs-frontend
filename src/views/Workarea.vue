@@ -8,7 +8,7 @@
             did not receive the email, click <a href="#" @click="verifyResend">here</a> to request another
         </h2>
         <h2 v-else>Hello, {{ user.name }}! You're in.</h2>
-        <b-button @click="sendLogoutRequest">Sair</b-button>
+        <b-button @click="logout">Sair</b-button>
     </div>
 </template>
 
@@ -25,12 +25,18 @@ export default {
         }
     },
 
+    mounted() {
+        if (localStorage.getItem('authToken')) {
+            this.getUserData()
+        }
+    },
+
     computed: {
         ...mapGetters('auth', ['user'])
     },
 
     methods: {
-        ...mapActions('auth', ['sendVerifyResendRequest', 'sendLogoutRequest']),
+        ...mapActions('auth', ['sendVerifyResendRequest', 'sendLogoutRequest', 'getUserData']),
 
         verifyResend() {
             this.success = this.error = null
@@ -42,6 +48,10 @@ export default {
                     this.error = 'Error sending verification link.'
                     console.log(error.response)
                 })
+        },
+        async logout() {
+            await this.sendLogoutRequest()
+            this.$router.push({ name: 'Login' })
         }
     }
 }

@@ -40,11 +40,10 @@ export default {
             commit('setUserData', response.data.user)
             localStorage.setItem('authToken', response.data.token)
         },
-        sendLogoutRequest({ commit }) {
-            axios.post(process.env.VUE_APP_API_URL + 'logout').then(() => {
-                commit('setUserData', null)
-                localStorage.removeItem('authToken')
-            })
+        async sendLogoutRequest({ commit }) {
+            await axios.post(process.env.VUE_APP_API_URL + 'logout')
+            commit('setUserData', null)
+            localStorage.removeItem('authToken')
         },
         sendVerifyResendRequest() {
             return axios.get(process.env.VUE_APP_API_URL + 'email/resend')

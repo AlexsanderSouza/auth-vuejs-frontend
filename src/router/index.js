@@ -24,12 +24,12 @@ const routes = [
     {
         path: '/',
         name: 'Home',
-        beforeEnter: guest,
         component: Home
     },
     {
         path: '/login',
         name: 'Login',
+        beforeEnter: guest,
         component: () => import(/* webpackChunkName: "login" */ '../views/auth/Login.vue')
     },
     {
@@ -38,6 +38,13 @@ const routes = [
         beforeEnter: auth,
         props: true,
         component: () => import(/* webpackChunkName: "workarea" */ '../views/Workarea.vue')
+    },
+    {
+        path: '/verify/:hash',
+        name: 'Verify',
+        beforeEnter: auth,
+        props: true,
+        component: () => import(/* webpackChunkName: "verify" */ '../views/auth/Verify.vue')
     }
 ]
 
