@@ -121,8 +121,10 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import myHelpers from '@/plugins/myHelpers'
 
 export default {
+    mixins: [myHelpers],
     data() {
         return {
             form: {
@@ -162,9 +164,15 @@ export default {
         ...mapActions('auth', ['sendLoginRequest', 'sendRegisterRequest']),
         onSubmit() {
             if (this.loginOrRegister) {
-                this.sendLoginRequest(this.form).then(() => {
-                    this.$router.push({ name: 'Workarea' })
-                })
+                this.sendLoginRequest(this.form)
+                    .then(() => {
+                        this.$router.push({ name: 'Workarea' })
+                    })
+                    .catch(error => {
+                        console.log(error.response)
+                        this.error = 'Error verifying email'
+                        this.toastTopEnd('error', 'Email ou senha não existe')
+                    })
             } else {
                 this.sendRegisterRequest(this.form).then(() => {
                     this.$router.push({ name: 'Workarea' })

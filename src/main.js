@@ -7,6 +7,7 @@ import { isMobile } from 'mobile-device-detect'
 import './plugins/bootstrap'
 import './plugins/axios'
 import './plugins/veeValidate'
+import './plugins/sweetalert2'
 
 Vue.config.productionTip = false
 
