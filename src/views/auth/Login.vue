@@ -121,10 +121,8 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import myHelpers from '@/plugins/myHelpers'
 
 export default {
-    mixins: [myHelpers],
     data() {
         return {
             form: {
@@ -171,7 +169,7 @@ export default {
                     .catch(error => {
                         console.log(error.response)
                         this.error = 'Error verifying email'
-                        this.toastTopEnd('error', 'Email ou senha não existe')
+                        this.$helpers.toastTopEnd('error', 'Email ou senha não existe')
                     })
             } else {
                 this.sendRegisterRequest(this.form).then(() => {

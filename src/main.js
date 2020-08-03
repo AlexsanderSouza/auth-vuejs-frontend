@@ -8,6 +8,7 @@ import './plugins/bootstrap'
 import './plugins/axios'
 import './plugins/veeValidate'
 import './plugins/sweetalert2'
+import './plugins/helpers-config'
 
 Vue.config.productionTip = false
 
