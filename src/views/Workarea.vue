@@ -1,6 +1,5 @@
 <template>
-    <div class="home mt-5">
-        <sidebar></sidebar>
+    <div>
         <div class="alert alert-success" role="alert" v-if="success">{{ success }}</div>
         <div class="alert alert-danger" role="alert" v-if="error">{{ error }}</div>
         <h2 v-if="!user">Welcome, please log in or register</h2>
@@ -15,12 +14,9 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import sidebar from '@/components/menu/sidebar'
 
 export default {
     name: 'Workarea',
-    components: { sidebar },
-
     data() {
         return {
             success: null,

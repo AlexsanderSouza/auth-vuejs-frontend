@@ -1,50 +1,20 @@
 <template>
-    <div id="demo" :class="[{ collapsed: collapsed }, { onmobile: isOnMobile }]">
-        <div class="demo">
-            <div class="container">
-                <h1>
-                    vue-sidebar-menu
-                    <a
-                        style="color: #000;text-transform: uppercase;font-size: 14px;font-weight: 400;"
-                        href="https://github.com/yaminncco/vue-sidebar-menu"
-                    >
-                        Github
-                    </a>
-                </h1>
-                <p>A vue.js sidebar menu component</p>
-                <div>
-                    Select theme:
-                    <select v-model="selectedTheme">
-                        <option v-for="(theme, index) in themes" :key="index" :value="theme.input">
-                            {{ theme.name }}
-                        </option>
-                    </select>
-                </div>
-                <hr style="margin: 50px 0px;border: 1px solid #e3e3e3;" />
-                <router-view />
-            </div>
-            <sidebar-menu
-                :menu="menu"
-                :collapsed="collapsed"
-                :theme="selectedTheme"
-                :show-one-child="true"
-                @toggle-collapse="onToggleCollapse"
-                @item-click="onItemClick"
-            />
-            <div v-if="isOnMobile && !collapsed" class="sidebar-overlay" @click="collapsed = true" />
-        </div>
-    </div>
+    <sidebar-menu
+        :menu="menu"
+        :collapsed="collapsed"
+        :theme="selectedTheme"
+        :show-one-child="true"
+        @toggle-collapse="onToggleCollapse"
+        @item-click="onItemClick"
+    />
 </template>
 
 <script>
-import { SidebarMenu } from 'vue-sidebar-menu'
-import 'vue-sidebar-menu/dist/vue-sidebar-menu.css'
 const separator = {
     template: `<hr style="border-color: rgba(0, 0, 0, 0.1); margin: 20px;">`
 }
 export default {
-    name: 'App',
-    components: { SidebarMenu },
+    name: 'sidebar',
     data() {
         return {
             menu: [
@@ -173,8 +143,7 @@ export default {
                     input: 'white-theme'
                 }
             ],
-            selectedTheme: '',
-            isOnMobile: false
+            selectedTheme: 'Default theme'
         }
     },
     mounted() {
@@ -184,13 +153,14 @@ export default {
     methods: {
         onToggleCollapse(collapsed) {
             console.log(collapsed)
+            this.$emit('toggleCollapse', collapsed)
             this.collapsed = collapsed
         },
         onItemClick(event, item, node) {
-            console.log('onItemClick', event, item, node)
-            // console.log(event)
-            // console.log(item)
-            // console.log(node)
+            console.log('onItemClick')
+            console.log(event)
+            console.log(item)
+            console.log(node)
         },
         onResize() {
             if (window.innerWidth <= 767) {
@@ -200,6 +170,7 @@ export default {
                 this.isOnMobile = false
                 this.collapsed = false
             }
+            this.$emit('onResize', { isOnMobile: this.isOnMobile, collapsed: this.collapsed })
         }
     }
 }

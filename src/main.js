@@ -9,6 +9,7 @@ import './plugins/axios'
 import './plugins/veeValidate'
 import './plugins/sweetalert2'
 import './plugins/helpers-config'
+import './plugins/sidebar'
 import '@fortawesome/fontawesome-free/css/all.css'
 
 Vue.config.productionTip = false
