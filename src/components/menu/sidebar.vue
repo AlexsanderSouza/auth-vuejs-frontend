@@ -5,10 +5,17 @@
         :theme="selectedTheme"
         :show-one-child="true"
         @toggle-collapse="onToggleCollapse"
-    />
+    >
+        <div slot="footer">
+            <b-button squared class="button-logout" @click="logout">
+                <b-icon icon="power" aria-hidden="true"></b-icon> Sair
+            </b-button>
+        </div>
+    </sidebar-menu>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 const separator = {
     template: `<hr style="border-color: rgba(0, 0, 0, 0.1); margin: 20px;">`
 }
@@ -150,6 +157,7 @@ export default {
         window.addEventListener('resize', this.onResize)
     },
     methods: {
+        ...mapActions('auth', ['sendLogoutRequest']),
         onToggleCollapse(collapsed) {
             this.$emit('toggleCollapse', collapsed)
             this.collapsed = collapsed
@@ -163,6 +171,10 @@ export default {
                 this.collapsed = false
             }
             this.$emit('onResize', { isOnMobile: this.isOnMobile, collapsed: this.collapsed })
+        },
+        async logout() {
+            await this.sendLogoutRequest()
+            this.$router.push({ name: 'Login' })
         }
     }
 }
@@ -179,5 +191,9 @@ export default {
     background-color: #000;
     opacity: 0.5;
     z-index: 900;
+}
+
+.button-logout {
+    width: 100%;
 }
 </style>
