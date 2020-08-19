@@ -1,24 +1,28 @@
 <template>
-    <div id="app" :class="[{ collapsed: collapsed }, { onmobile: isOnMobile }]">
-        <div class="app">
-            <div class="container">
+    <div id="app" :class="[{ collapsed: collapsed && user }, { onmobile: isOnMobile }, { padding: user }]">
+        <div :class="{ app: this.user }">
+            <div :class="{ container: this.user }">
                 <router-view />
             </div>
-            <sidebar @toggleCollapse="collapsed = $event" @onResize="onResize($event)" />
-            <div v-if="isOnMobile && !collapsed" class="sidebar-overlay" @click="collapsed = true" />
+            <sidebar v-if="user" @toggleCollapse="collapsed = $event" @onResize="onResize($event)" />
+            <div v-if="isOnMobile && !collapsed && user" class="sidebar-overlay" @click="collapsed = true" />
         </div>
     </div>
 </template>
 <script>
 import sidebar from '@/components/menu/sidebar'
+import { mapGetters } from 'vuex'
 export default {
     name: 'app',
     components: { sidebar },
     data() {
         return {
-            collapsed: false,
+            collapsed: this.user,
             isOnMobile: false
         }
+    },
+    computed: {
+        ...mapGetters('auth', ['user'])
     },
     methods: {
         onResize(event) {
@@ -37,27 +41,16 @@ export default {
     color: #2c3e50;
 }
 
-#nav {
-    padding: 30px;
-
-    a {
-        font-weight: bold;
-        color: #2c3e50;
-
-        &.router-link-exact-active {
-            color: #42b983;
-        }
-    }
-}
-
 body,
 html {
     margin: 0;
     padding: 0;
 }
 #app {
-    padding-left: 350px;
     transition: 0.3s ease;
+}
+#app.padding {
+    padding-left: 350px;
 }
 #app.collapsed {
     padding-left: 50px;
@@ -76,10 +69,7 @@ html {
     z-index: 900;
 }
 .app {
-    padding: 50px;
-}
-.container {
-    max-width: 900px;
+    padding: 30px;
 }
 pre {
     font-family: Consolas, monospace;
