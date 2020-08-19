@@ -8,7 +8,7 @@
     >
         <div slot="footer">
             <b-button squared class="button-logout" @click="logout">
-                <b-icon icon="power" aria-hidden="true"></b-icon> Sair
+                <i class="fa fa-sign-out-alt fa-flip-horizontal"></i> Sair
             </b-button>
         </div>
     </sidebar-menu>
