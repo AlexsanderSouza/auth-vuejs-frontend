@@ -30,9 +30,9 @@ export default {
                     hiddenOnCollapse: true
                 },
                 {
-                    href: '/',
-                    title: 'Installation',
-                    icon: 'fa fa-download'
+                    href: '/workarea',
+                    title: 'Início',
+                    icon: 'fa fa-home'
                 },
                 {
                     href: '/basic-usage',
