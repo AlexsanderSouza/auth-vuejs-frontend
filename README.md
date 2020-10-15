@@ -1,4 +1,7 @@
-# fitnesscenter
+# frontend com vuejs
+- login com usuário e senha
+- menu de ferramentas
+- electron (app web and desktop)
 
 ## Project setup
 ```
